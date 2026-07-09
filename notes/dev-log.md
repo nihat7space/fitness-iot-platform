@@ -17,3 +17,11 @@
 
 ### Next step
 - Add simple fitness-related endpoints.
+
+## Day 2 - FastAPI POST and Validation
+
+- Added POST /workouts endpoint.
+- Created a Workout Pydantic model with exercise, sets, reps, and weight.
+- Tested request body using Swagger UI.
+- Tested validation error by sending a string value to sets.
+- Added total_volume calculation: sets * reps * weight.
