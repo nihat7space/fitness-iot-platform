@@ -49,3 +49,20 @@ Today I added temporary workout storage using a Python list.
 - `workouts = []` is only temporary storage.
 - Data stored in a Python list disappears when the server restarts.
 - Later, this temporary list will be replaced with a real database like PostgreSQL.
+
+
+## Day 4 - Workout ID and Single Workout Endpoint
+
+Today I added an auto-incrementing workout id using a global counter.
+
+What I learned:
+- How to create temporary ids before using a real database
+- How FastAPI path parameters work
+- How to get one workout by id
+- How to return 404 error with HTTPException
+
+Tested:
+- POST /workouts gives each workout an id
+- GET /workouts returns all workouts
+- GET /workouts/{workout_id} returns one workout
+- GET /workouts/999 returns 404 Workout not found
