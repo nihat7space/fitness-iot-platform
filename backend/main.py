@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 class Workout(BaseModel):
@@ -8,7 +8,11 @@ class Workout(BaseModel):
     weight: float
 
 app = FastAPI(title="Fitness IoT Platform API")
+
 workouts = []
+
+next_workout_id = 1
+
 
 @app.get("/health")
 def health_check():
@@ -22,12 +26,12 @@ def hello():
     return { "message": "Hello, Nihat!"}
 
 
-
-
 @app.post("/workouts")
 def create_workout(workout: Workout):
+    global next_workout_id
     total_volume = workout.sets * workout.reps * workout.weight
     new_workout = {
+        "id": next_workout_id,
         "exercise" : workout.exercise,
         "sets" : workout.sets,
         "reps" : workout.reps,
@@ -35,6 +39,7 @@ def create_workout(workout: Workout):
         "total_volume" : total_volume
     }
     workouts.append(new_workout)
+    next_workout_id += 1
     return {
         "message": "Workout saved",
         "workout": new_workout
@@ -47,3 +52,9 @@ def get_workouts():
         "workouts": workouts
     }
 
+@app.get("/workouts/{workout_id}")
+def get_workout(workout_id: int):
+    for workout in workouts:
+        if workout["id"] == workout_id:
+            return workout
+    raise HTTPException(status_code=404, detail="Workout not found")
