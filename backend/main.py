@@ -58,3 +58,16 @@ def get_workout(workout_id: int):
         if workout["id"] == workout_id:
             return workout
     raise HTTPException(status_code=404, detail="Workout not found")
+
+
+@app.delete("/workouts/{workout_id}")
+def delete_workout(workout_id: int):
+    for workout in workouts:
+        if workout["id"] == workout_id:
+            workouts.remove(workout)
+            return{
+                "message": "Workout deleted",
+                "workout": workout
+            
+            }
+    raise HTTPException(status_code=404, detail="Workout not found")
