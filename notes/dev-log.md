@@ -66,3 +66,11 @@ Tested:
 - GET /workouts returns all workouts
 - GET /workouts/{workout_id} returns one workout
 - GET /workouts/999 returns 404 Workout not found
+
+## Day 5
+
+- DELETE /workouts/{workout_id} endpoint'i eklendi.
+- Workout'lar id değerine göre arandı.
+- Bulunan workout, remove() kullanılarak listeden silindi.
+- Workout bulunamazsa 404 HTTPException döndürüldü.
+- Swagger üzerinden başarılı silme ve bulunamayan id senaryoları test edildi.

@@ -71,3 +71,25 @@ def delete_workout(workout_id: int):
             
             }
     raise HTTPException(status_code=404, detail="Workout not found")
+
+
+@app.put("/workouts/{workout_id}")
+def update_workout(workout_id: int, updated_workout: Workout):
+    for workout in workouts:
+        if workout["id"] == workout_id:
+            workout["exercise"] = updated_workout.exercise
+            workout["sets"] = updated_workout.sets
+            workout["reps"] = updated_workout.reps
+            workout["weight"] = updated_workout.weight
+            workout["total_volume"] = (
+                updated_workout.sets
+                * updated_workout.reps
+                * updated_workout.weight
+            )
+
+            return {
+                "message": "Workout updated",
+                "workout": workout
+            }
+
+    raise HTTPException(status_code=404, detail="Workout not found")
