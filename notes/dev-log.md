@@ -74,3 +74,30 @@ Tested:
 - Bulunan workout, remove() kullanılarak listeden silindi.
 - Workout bulunamazsa 404 HTTPException döndürüldü.
 - Swagger üzerinden başarılı silme ve bulunamayan id senaryoları test edildi.
+
+Day 6
+- PUT /workouts/{workout_id} endpointi eklendi
+- Workout alanları güncellendi
+- total_volume yeniden hesaplandı
+- Bulunamayan workout için 404 döndürüldü
+- Swagger ile POST → PUT → GET testi yapıldı
+
+
+## Day 7 - Query Parameters
+
+### What I learned
+- Query parameter mantığını öğrendim.
+- Path parameter ile query parameter arasındaki farkı öğrendim.
+- `exercise` query parameter ile egzersize göre filtreleme ekledim.
+- `min_volume` query parameter ile minimum hacme göre filtreleme ekledim.
+- Birden fazla query parameter'ı aynı endpoint içinde kullandım.
+- `.lower()` ile büyük/küçük harf duyarsız arama yaptım.
+- List comprehension kullanarak filtreleme yaptım.
+
+### Tested
+- GET /workouts
+- GET /workouts?exercise=Bench Press
+- GET /workouts?exercise=bench press
+- GET /workouts?exercise=Deadlift
+- GET /workouts?min_volume=1500
+- GET /workouts?exercise=Bench Press&min_volume=1500

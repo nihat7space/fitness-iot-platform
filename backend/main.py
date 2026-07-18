@@ -46,11 +46,30 @@ def create_workout(workout: Workout):
     }
 
 @app.get("/workouts")
-def get_workouts():
+def get_workouts(exercise: str | None = None,
+     min_volume: float | None = None):
+    
+    filtered_workouts = workouts
+
+    if exercise is not None:
+        filtered_workouts = [
+            workout
+            for workout in filtered_workouts
+            if workout["exercise"].lower() == exercise.lower()
+        ]
+
+    if min_volume is not None:
+        filtered_workouts = [
+                workout
+                for workout in filtered_workouts
+                if workout["total_volume"] >= min_volume
+        ]
+
     return {
-        "count": len(workouts),
-        "workouts": workouts
+        "count": len(filtered_workouts),
+        "workouts": filtered_workouts
     }
+
 
 @app.get("/workouts/{workout_id}")
 def get_workout(workout_id: int):
