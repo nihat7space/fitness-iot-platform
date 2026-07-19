@@ -101,3 +101,17 @@ Day 6
 - GET /workouts?exercise=Deadlift
 - GET /workouts?min_volume=1500
 - GET /workouts?exercise=Bench Press&min_volume=1500
+
+## Day 8
+
+Today I learned how to sort workouts with query parameters.
+
+- Added `sort_by` query parameter.
+- Added `descending` query parameter.
+- Used Python `sorted()` function.
+- Learned how `lambda` works for sorting.
+- Added validation for allowed sort fields.
+- Returned `400 Bad Request` for invalid sort fields.
+- Tested sorting in Swagger.
+
+Today I understood how `sorted()` uses `key` and `lambda` to sort a list.

@@ -47,9 +47,12 @@ def create_workout(workout: Workout):
 
 @app.get("/workouts")
 def get_workouts(exercise: str | None = None,
-     min_volume: float | None = None):
+     min_volume: float | None = None,
+     sort_by: str | None = None,
+     descending: bool = False):
     
     filtered_workouts = workouts
+
 
     if exercise is not None:
         filtered_workouts = [
@@ -65,6 +68,28 @@ def get_workouts(exercise: str | None = None,
                 if workout["total_volume"] >= min_volume
         ]
 
+    if sort_by is not None:
+        allowed_sort_fields = [
+            "exercise",
+            "sets",
+            "reps",
+            "weight",
+            "total_volume"
+        ]
+
+        if sort_by not in allowed_sort_fields:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid sort field. Allowed fields: {', '.join(allowed_sort_fields)}"
+            )
+        
+        filtered_workouts = sorted(
+            filtered_workouts,
+            key = lambda workout: workout[sort_by],
+            reverse = descending
+        )
+
+    
     return {
         "count": len(filtered_workouts),
         "workouts": filtered_workouts
