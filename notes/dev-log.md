@@ -115,3 +115,15 @@ Today I learned how to sort workouts with query parameters.
 - Tested sorting in Swagger.
 
 Today I understood how `sorted()` uses `key` and `lambda` to sort a list.
+
+## Day 9 - Workout Pagination
+
+Today I added pagination to the `GET /workouts` endpoint.
+
+- Added `offset` and `limit` query parameters.
+- Used Python list slicing to return only part of the workout list.
+- Added validation for negative offset and invalid limit values.
+- Added `total_count` and `returned_count` to the response.
+
+I learned how pagination works and why APIs do not return all records at once.
+

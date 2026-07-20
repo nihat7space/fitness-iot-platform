@@ -49,7 +49,9 @@ def create_workout(workout: Workout):
 def get_workouts(exercise: str | None = None,
      min_volume: float | None = None,
      sort_by: str | None = None,
-     descending: bool = False):
+     descending: bool = False,
+     offset: int = 0,
+     limit: int | None = None):
     
     filtered_workouts = workouts
 
@@ -82,18 +84,41 @@ def get_workouts(exercise: str | None = None,
                 status_code=400,
                 detail=f"Invalid sort field. Allowed fields: {', '.join(allowed_sort_fields)}"
             )
-        
+ 
         filtered_workouts = sorted(
             filtered_workouts,
             key = lambda workout: workout[sort_by],
             reverse = descending
+            
+        )
+    
+    if offset < 0:
+        raise HTTPException(
+            status_code=400,
+            detail="Offset must be a non-negative integer"
+        )
+    if limit is not None and limit < 1:
+        raise HTTPException(
+            status_code=400,
+            detail="Limit must be a positive integer"
         )
 
-    
+    total_count = len(filtered_workouts)
+
+    if limit is None:
+        paginated_workouts = filtered_workouts[offset:]
+    else:
+        paginated_workouts = filtered_workouts[offset:offset + limit]  
+
+
+ 
     return {
-        "count": len(filtered_workouts),
-        "workouts": filtered_workouts
-    }
+    "total_count": total_count,
+    "returned_count": len(paginated_workouts),
+    "offset": offset,
+    "limit": limit,
+    "workouts": paginated_workouts
+}
 
 
 @app.get("/workouts/{workout_id}")
