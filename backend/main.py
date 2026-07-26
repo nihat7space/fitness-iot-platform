@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException, Query
+from pydantic import BaseModel,Field
 
 class Workout(BaseModel):
-    exercise: str
-    sets: int 
-    reps: int
-    weight: float
+    exercise: str = Field(min_length=1)
+    sets: int = Field(ge=1)
+    reps: int = Field(ge=1)
+    weight: float = Field(ge=0.0)
 
 app = FastAPI(title="Fitness IoT Platform API")
 
@@ -51,7 +51,8 @@ def get_workouts(exercise: str | None = None,
      sort_by: str | None = None,
      descending: bool = False,
      offset: int = 0,
-     limit: int | None = None):
+     limit: int | None = None,
+    ):
     
     filtered_workouts = workouts
 
