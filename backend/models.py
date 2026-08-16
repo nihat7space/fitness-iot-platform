@@ -14,3 +14,4 @@ class Workout(Base):
     sets = Column(Integer)
     reps = Column(Integer)
     weight = Column(Float)
+    total_volume = Column(Float)
