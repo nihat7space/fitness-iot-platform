@@ -26,3 +26,13 @@ class UserResponse(BaseModel):
 class UserLogin(BaseModel):
     identifier: str = Field(min_length=1)
     password: str = Field(min_length=8)
+
+
+class SensorDataCreate(BaseModel):
+    accel_x: float
+    accel_y: float
+    accel_z: float
+    gyro_x: float
+    gyro_y: float
+    gyro_z: float
+    label: str | None = None

@@ -5,3 +5,15 @@ __pycache__/
 .DS_Store
 CLAUDE.md
 
+
+# Python virtual environments
+venv/
+ml/venv/
+
+# ML generated datasets
+ml/sensor_raw.csv
+ml/sensor_dataset.csv
+
+# Secrets / keys
+*.pem
+secrets.h
