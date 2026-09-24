@@ -92,6 +92,8 @@ def predict_activity(db: Session = Depends(get_db)):
             "available": len(recent_data)
         }
 
+    latest_sample = recent_data[0]
+
     recent_data.reverse()
 
     features = extract_features(recent_data)
@@ -108,5 +110,7 @@ def predict_activity(db: Session = Depends(get_db)):
     return {
         "prediction": prediction,
         "confidence": round(confidence, 4),
-        "window_size": window_size
+        "window_size": window_size,
+        "latest_sensor_id": latest_sample.id,
+        "latest_sensor_at": latest_sample.created_at
     }
